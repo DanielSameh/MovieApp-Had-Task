@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "../screens/HomeScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SeeAllScreen from "../screens/SeeAllScreen";
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,11 @@ export default function AppNavigator() {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+           <Stack.Screen
+            name="SeeAll"
+            component={SeeAllScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

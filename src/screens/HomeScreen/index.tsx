@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { fetchGenres, fetchMovies } from "../../api";
 import MainMovie from "../../component/Home/MainMovie";
 import MovieItem from "../../component/Home/MovieItem";
-import { Genre, GenresLookup, Movie } from "../../types";
+import { Genre, GenresLookup, Movie, RootStackParamList } from "../../types";
 import style from "./HomeScreen.styles";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen: React.FC = () => {
   const [mainMovie, setMainMovie] = useState<Movie | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<GenresLookup>({});
   const [loading, setLoading] = useState(true);
-
+  const navigation = useNavigation<RootStackParamList>();
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -37,8 +38,8 @@ const HomeScreen: React.FC = () => {
     loadData();
   }, []);
 
-  const handlePress = () => {
-    // logic
+  const handleSeeAllPress = () => {
+    navigation.navigate("Home")
   };
 
   if (loading) {
@@ -50,13 +51,15 @@ const HomeScreen: React.FC = () => {
       {mainMovie ? <MainMovie movie={mainMovie} genres={genres} /> : null}
       <View style={style.row}>
         <Text style={style.title}>Premieres</Text>
+        <TouchableOpacity onPress={handleSeeAllPress}>
         <Text style={style.seeAll}>See All</Text>
+        </TouchableOpacity>
       </View>
       <FlatList
         data={movies}
         horizontal
         renderItem={({ item }) => (
-          <MovieItem movie={item} onPress={handlePress} />
+          <MovieItem movie={item} onPress={()=>{}} />
         )}
         keyExtractor={(item) => item.id.toString()}
         initialNumToRender={10}

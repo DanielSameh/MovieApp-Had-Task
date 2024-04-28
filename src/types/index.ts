@@ -15,3 +15,8 @@ export interface Movie {
   release_date: string;
   genre_ids: number[];
 }
+
+export type RootStackParamList = {
+  Home: undefined; 
+  SeeAll: undefined; 
+};
