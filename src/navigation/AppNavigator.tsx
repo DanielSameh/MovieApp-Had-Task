@@ -4,8 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "../screens/HomeScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SeeAllScreen from "../screens/SeeAllScreen";
+import { RootStackParamList } from "../types";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function AppNavigator() {
   return (

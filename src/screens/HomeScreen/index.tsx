@@ -6,13 +6,14 @@ import MovieItem from "../../component/Home/MovieItem";
 import { Genre, GenresLookup, Movie, RootStackParamList } from "../../types";
 import style from "./HomeScreen.styles";
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const HomeScreen: React.FC = () => {
   const [mainMovie, setMainMovie] = useState<Movie | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [genres, setGenres] = useState<GenresLookup>({});
   const [loading, setLoading] = useState(true);
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -38,8 +39,9 @@ const HomeScreen: React.FC = () => {
     loadData();
   }, []);
 
+
   const handleSeeAllPress = () => {
-    navigation.navigate("Home")
+    navigation.navigate("SeeAll")
   };
 
   if (loading) {

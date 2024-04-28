@@ -3,7 +3,6 @@ export interface Genre {
   name: string;
 }
 
-// Define the structure for the genres lookup object
 export interface GenresLookup {
   [key: number]: string;
 }

@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { fetchMovies } from '../../api';
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  View
+} from "react-native";
+import { fetchMovies } from "../../api";
+import MovieItem from "../../component/Home/MovieItem";
+import { Movie } from "../../types";
+import style from "./SeeAllScreen.styles";
 
 const SeeAllScreen: React.FC = () => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +24,7 @@ const SeeAllScreen: React.FC = () => {
     setLoading(true);
     try {
       const newMovies = await fetchMovies(page);
-      setMovies(prev => [...prev, ...newMovies.results]);
+      setMovies((prev) => [...prev, ...newMovies.results]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -26,31 +33,32 @@ const SeeAllScreen: React.FC = () => {
   };
 
   const handleLoadMore = () => {
-    setPage(prev => prev + 1);
+    setPage((prev) => prev + 1);
   };
 
   return (
-    <View style={styles.container}>
-      {/* <FlatList
+    <View style={style.container}>
+        <FlatList
         data={movies}
-        // render items just like in HomeScreen, possibly using the same component
+        renderItem={({ item }) => (
+          <View style={style.itemContainer}>
+            <MovieItem
+              movie={item}
+              onPress={() => {}}
+            />
+          </View>
+        )}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
+        numColumns={2}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5}
         ListFooterComponent={
-          loading && <ActivityIndicator />
+          loading ? <ActivityIndicator size="large" color="#0000ff" /> : null
         }
-      /> */}
+      />
     </View>
   );
 };
 
-// Add styles as per your design for SeeAllScreen
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  // Add more styles according to the design
-});
 
 export default SeeAllScreen;
