@@ -1,5 +1,5 @@
 # Tools & Technologies Used in project
-- React Native to implement the application in both platform IOS and Android <br>
+- Expo React Native to implement the application <br>
 - Axios to make requests and intergrate RESTFUL Api <br>
 
 # Installation
